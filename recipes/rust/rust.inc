@@ -328,6 +328,8 @@ rust_runmake () {
 }
 
 do_compile () {
+	mkdir -p dl
+	cp -f ${WORKDIR}/rust-stage0-2015-03-27-5520801-linux-x86_64-ef2154372e97a3cb687897d027fd51c8f2c5f349.tar.bz2 dl
 	rust_runmake
 }
 
