@@ -3,6 +3,7 @@ INHIBIT_CARGO_DEP = "1"
 inherit cargo
 inherit patch
 inherit rust-installer
+require cargo-snapshot.inc
 
 SUMMARY = "Cargo downloads your Rust project's dependencies and builds your project"
 HOMEPAGE = "http://crates.io"
@@ -11,14 +12,10 @@ LICENSE = "MIT | Apache-2.0"
 
 DEPENDS = "openssl zlib libgit2 curl ca-certificates libssh2"
 
-SRC_URI = "\
+SRC_URI += "\
 	git://github.com/rust-lang/cargo.git;protocol=https;name=cargo \
 	git://github.com/rust-lang/rust-installer.git;protocol=https;name=rust-installer;destsuffix=git/src/rust-installer \
-	http://static-rust-lang-org.s3.amazonaws.com/cargo-dist/2015-04-02/cargo-nightly-x86_64-unknown-linux-gnu.tar.gz \
 "
-
-SRC_URI[md5sum] = "3d62194d02a9088cd8aae379e9498134"
-SRC_URI[sha256sum] = "16b6338ba2942989693984ba4dbd057c2801e8805e6da8fa7b781b00e722d117"
 
 LIC_FILES_CHKSUM ="\
 	file://LICENSE-MIT;md5=362255802eb5aa87810d12ddf3cfedb4 \
@@ -36,6 +33,10 @@ PACKAGECONFIG ??= ""
 # Note: this does not appear to work very well due to our use of bitbake triples
 # & rust's use of cooked triples
 PACKAGECONFIG[rust-snapshot] = "--local-rust-root=${B}/rustc"
+
+# Rather than have cargo download a snapshot to bootstrap, use whatever happens
+# to be in the PATH.
+PACKAGECONFIG[cargo-local] = ""
 
 do_configure () {
 	${@bb.utils.contains('PACKAGECONFIG', 'rust-snapshot', '${S}/.travis.install.deps.sh', ':', d)}
