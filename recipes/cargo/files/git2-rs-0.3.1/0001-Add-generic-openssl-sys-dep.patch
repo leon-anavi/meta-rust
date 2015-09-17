@@ -1,59 +1,44 @@
-From aa1bea8387b6108ca2cd60ad71e8d354d8790d62 Mon Sep 17 00:00:00 2001
+From 300b24207c7a7695bc6af376360c0f055c4d862c Mon Sep 17 00:00:00 2001
 From: Cody P Schafer <dev@codyps.com>
 Date: Mon, 10 Nov 2014 15:06:29 -0500
 Subject: [PATCH] Add generic openssl-sys dep
 
 ---
- libgit2-sys/Cargo.toml | 36 ++----------------------------------
- 1 file changed, 2 insertions(+), 34 deletions(-)
+ libgit2-sys/Cargo.toml | 19 +------------------
+ 1 file changed, 1 insertion(+), 18 deletions(-)
 
 diff --git a/libgit2-sys/Cargo.toml b/libgit2-sys/Cargo.toml
-index 9c0aa6c..d95d07e 100644
+index 6b0423e..cedc82c 100644
 --- a/libgit2-sys/Cargo.toml
 +++ b/libgit2-sys/Cargo.toml
-@@ -16,40 +16,8 @@ description = "Native bindings to the libgit2 library"
- [dependencies]
- libssh2-sys = "0.1.0"
+@@ -17,26 +17,9 @@ path = "lib.rs"
+ libssh2-sys = "0.1.28"
  libc = "0.1"
+ libz-sys = "0.1.0"
 +openssl-sys = "0.6.0"
-+libz-sys = "0.1.0"
  
  [build-dependencies]
  pkg-config = "0.3"
--
--[target.i686-apple-darwin.dependencies]
--openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
--[target.x86_64-apple-darwin.dependencies]
--openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
+ cmake = "0.1.2"
+ 
 -[target.i686-unknown-linux-gnu.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.x86_64-unknown-linux-gnu.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.aarch64-unknown-linux-gnu.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.arm-unknown-linux-gnueabihf.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.i686-unknown-freebsd.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.x86_64-unknown-freebsd.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.x86_64-unknown-bitrig.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.x86_64-unknown-openbsd.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -[target.x86_64-unknown-dragonfly.dependencies]
 -openssl-sys = "0.6.0"
--libz-sys = "0.1.0"
 -- 
-2.4.3
+2.5.1
 

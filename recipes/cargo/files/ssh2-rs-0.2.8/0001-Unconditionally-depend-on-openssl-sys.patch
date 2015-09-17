@@ -1,4 +1,4 @@
-From b45c6ed5524690603a1888dff21556b7f42db474 Mon Sep 17 00:00:00 2001
+From b9492441757f0655499edba22b2102b52687de6f Mon Sep 17 00:00:00 2001
 From: Cody P Schafer <dev@codyps.com>
 Date: Mon, 1 Dec 2014 10:51:31 -0500
 Subject: [PATCH] Unconditionally depend on openssl-sys
@@ -8,7 +8,7 @@ Subject: [PATCH] Unconditionally depend on openssl-sys
  1 file changed, 22 deletions(-)
 
 diff --git a/libssh2-sys/Cargo.toml b/libssh2-sys/Cargo.toml
-index 501bba5..db8d21a 100644
+index 3147f2f..cac38c6 100644
 --- a/libssh2-sys/Cargo.toml
 +++ b/libssh2-sys/Cargo.toml
 @@ -15,28 +15,6 @@ path = "lib.rs"
@@ -41,5 +41,5 @@ index 501bba5..db8d21a 100644
  
  [build-dependencies]
 -- 
-2.4.3
+2.5.1
 
