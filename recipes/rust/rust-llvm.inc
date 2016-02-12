@@ -31,3 +31,7 @@ BBCLASSEXTEND = "native"
 
 # avoid error: debugedit failed with exit code 256
 INHIBIT_PACKAGE_DEBUG_SPLIT="1"
+
+# ship rust-llvm files and directories
+FILES_${PN} += "/usr/share/*"
+FILES_${PN} += "/usr/lib/*"
