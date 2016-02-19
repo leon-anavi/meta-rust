@@ -11,3 +11,10 @@ LIC_FILES_CHKSUM="file://LICENSE;md5=65d26fcc2f35ea6a181ac777e42db1ea"
 S = "${WORKDIR}/git"
 
 BBCLASSEXTEND = "native"
+
+do_install_append() {
+ install -m 0755 -p -D ${S}/docker/client.toml ${D}/var/sota/client.toml
+}
+
+FILES_${PN} += "/var/sota/"
+FILES_${PN} += "/var/sota/client.toml"
