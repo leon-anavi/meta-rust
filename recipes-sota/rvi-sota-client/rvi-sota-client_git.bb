@@ -12,6 +12,8 @@ S = "${WORKDIR}/git"
 
 BBCLASSEXTEND = "native"
 
+RDEPENDS_${PN} += " dbus-lib libcrypto libssl"
+
 do_install_append() {
  install -m 0755 -p -D ${S}/docker/client.toml ${D}/var/sota/client.toml
 }
