@@ -1,0 +1,8 @@
+[Unit]
+Description=RVI SOTA Client
+
+[Service]
+ExecStart=/usr/bin/sota_client -c /var/sota/client.toml
+
+[Install]
+WantedBy=multi-user.target
