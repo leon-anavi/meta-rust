@@ -2,7 +2,8 @@
 Description=RVI SOTA Client
 
 [Service]
-ExecStart=/usr/bin/sota_client -c /var/sota/client.toml
+User=root
+ExecStart=/usr/bin/run.sh
 
 [Install]
 WantedBy=multi-user.target
