@@ -1,8 +1,13 @@
 diff --git a/docker/run.sh b/docker/run.sh
-index 995ac8b..783db69 100755
+index 995ac8b..250ca82 100755
 --- a/docker/run.sh
 +++ b/docker/run.sh
-@@ -13,4 +13,4 @@ SOTA_CLIENT="${SOTA_CLIENT_ADDR:-sota-client}:${SOTA_CLIENT_PORT:-9080}"
+@@ -9,8 +9,8 @@ export DBUS_SESSION_BUS_ADDRESS
+ export DBUS_SESSION_BUS_PID
+ 
+ LOGLEVEL=${LOGLEVEL:-"info"}
+-SOTA_CLIENT="${SOTA_CLIENT_ADDR:-sota-client}:${SOTA_CLIENT_PORT:-9080}"
++SOTA_CLIENT="${SOTA_CLIENT_ADDR:-0.0.0.0}:${SOTA_CLIENT_PORT:-9080}"
  RVI="${RVI:-http://rvi-client:8901}"
  
  export RUST_LOG=${RUST_LOG:-"sota_client=$LOGLEVEL"}
