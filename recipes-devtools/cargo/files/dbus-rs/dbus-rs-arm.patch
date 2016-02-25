@@ -1,0 +1,49 @@
+diff --git a/src/message.rs b/src/message.rs
+index 23871f8..e3dd021 100644
+--- a/src/message.rs
++++ b/src/message.rs
+@@ -126,7 +126,7 @@ fn iter_append_array(i: &mut ffi::DBusMessageIter, a: &[MessageItem], t: TypeSig
+     let mut subiter = new_dbus_message_iter();
+     let atype = to_c_str(&t);
+ 
+-    assert!(unsafe { ffi::dbus_message_iter_open_container(i, ffi::DBUS_TYPE_ARRAY, atype.as_ptr(), &mut subiter) } != 0);
++    assert!(unsafe { ffi::dbus_message_iter_open_container(i, ffi::DBUS_TYPE_ARRAY, atype.as_ptr() as *const _, &mut subiter) } != 0);
+     for item in a.iter() {
+ //        assert!(item.type_sig() == t);
+         item.iter_append(&mut subiter);
+@@ -148,7 +148,7 @@ fn iter_append_struct(i: &mut ffi::DBusMessageIter, a: &[MessageItem]) {
+ fn iter_append_variant(i: &mut ffi::DBusMessageIter, a: &MessageItem) {
+     let mut subiter = new_dbus_message_iter();
+     let atype = to_c_str(&format!("{}", a.array_type() as u8 as char));
+-    assert!(unsafe { ffi::dbus_message_iter_open_container(i, ffi::DBUS_TYPE_VARIANT, atype.as_ptr(), &mut subiter) } != 0);
++    assert!(unsafe { ffi::dbus_message_iter_open_container(i, ffi::DBUS_TYPE_VARIANT, atype.as_ptr()  as *const _, &mut subiter) } != 0);
+     a.iter_append(&mut subiter);
+     assert!(unsafe { ffi::dbus_message_iter_close_container(i, &mut subiter) } != 0);
+ }
+@@ -481,7 +481,7 @@ impl Message {
+         init_dbus();
+         let (d, p, i, m) = (to_c_str(destination), to_c_str(path), to_c_str(iface), to_c_str(method));
+         let ptr = unsafe {
+-            ffi::dbus_message_new_method_call(d.as_ptr(), p.as_ptr(), i.as_ptr(), m.as_ptr())
++            ffi::dbus_message_new_method_call(d.as_ptr() as *const _, p.as_ptr() as *const _, i.as_ptr() as *const _, m.as_ptr() as *const _)
+         };
+         if ptr == ptr::null_mut() { None } else { Some(Message { msg: ptr} ) }
+     }
+@@ -490,7 +490,7 @@ impl Message {
+         init_dbus();
+         let (p, i, m) = (to_c_str(path), to_c_str(iface), to_c_str(method));
+         let ptr = unsafe {
+-            ffi::dbus_message_new_signal(p.as_ptr(), i.as_ptr(), m.as_ptr())
++            ffi::dbus_message_new_signal(p.as_ptr() as *const _, i.as_ptr() as *const _, m.as_ptr() as *const _)
+         };
+         if ptr == ptr::null_mut() { None } else { Some(Message { msg: ptr} ) }
+     }
+@@ -502,7 +502,7 @@ impl Message {
+ 
+     pub fn new_error(m: &Message, error_name: &str, error_message: &str) -> Option<Message> {
+         let (en, em) = (to_c_str(error_name), to_c_str(error_message));
+-        let ptr = unsafe { ffi::dbus_message_new_error(m.msg, en.as_ptr(), em.as_ptr()) };
++        let ptr = unsafe { ffi::dbus_message_new_error(m.msg, en.as_ptr() as *const _, em.as_ptr() as *const _) };
+         if ptr == ptr::null_mut() { None } else { Some(Message { msg: ptr} ) }
+     }
+ 

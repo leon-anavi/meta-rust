@@ -55,3 +55,15 @@ SRCREV_git2-rs = "19b6873c1fad7dc93c9c2dac4cba339dacf16efa"
 
 SRCREV_FORMAT .= "_git2-rs"
 EXTRA_OECARGO_PATHS += "${WORKDIR}/git2-rs"
+
+## dbus-rs
+SRC_URI += "\
+        git://github.com/diwic/dbus-rs.git;protocol=https;name=dbus-rs;destsuffix=dbus-rs \
+        file://dbus-rs/dbus-rs-arm.patch;patchdir=../dbus-rs \
+"
+
+# 0.1.2
+SRCREV_dbus-rs = "c2c4c98adcf9949992ac5b0050bf17afe10868c9"
+
+SRCREV_FORMAT .= "_dbus-rs"
+EXTRA_OECARGO_PATHS += "${WORKDIR}/dbus-rs"
