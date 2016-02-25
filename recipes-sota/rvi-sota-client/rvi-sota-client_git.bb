@@ -14,9 +14,19 @@ S = "${WORKDIR}/git"
 
 BBCLASSEXTEND = "native"
 
+DEPENDS += " dbus"
 RDEPENDS_${PN} += " dbus-lib libcrypto libssl"
 
 SYSTEMD_SERVICE_${PN} = "rvi-sota-client.service"
+
+do_configure_append() {
+ # Use patched dbus-rs version for ARM
+ if ${@bb.utils.contains('TUNE_FEATURES', 'arm', 'true', 'false', d)}; then
+  rm -f ${WORKDIR}/.cargo/config
+  mkdir -p ${WORKDIR}/../.cargo
+  echo "paths = [\"${BASE_WORKDIR}/${BUILD_SYS}/cargo-native/0.7.0-r0/dbus-rs\"]" > ${WORKDIR}/../.cargo/config
+ fi
+}
 
 do_install_append() {
  install -m 0755 -p -D ${S}/docker/client.toml ${D}/var/sota/client.toml
